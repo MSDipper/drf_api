@@ -1,3 +1,10 @@
 from django.contrib import admin
-
-# Register your models here.
+from hotel.models import (
+    Category,
+    ImageRoom, 
+    Hotel, 
+    Comment, 
+    RatingStar, 
+    Rating,
+    Reviews
+    )
