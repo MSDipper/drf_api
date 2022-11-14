@@ -40,11 +40,12 @@ class Hotel(models.Model):
     create_at = models.DateTimeField(verbose_name='Добавлено', auto_now_add=True)
     quantity = models.IntegerField(verbose_name='Количество комнат', default=1)
     gps = models.CharField(max_length=250, verbose_name='Место положение')
-    main_image = models.ImageField(upload_to='images/', verbose_name='Главное изображение', null=True)
+    main_image = models.ImageField(upload_to='images/', verbose_name='Главное изображение', null=True, blank=True)
     slug = models.SlugField(max_length=150, verbose_name='URL', unique=True, null=True)
     description = RichTextField(verbose_name='Описание')
-    name_video = models.CharField(max_length=250, verbose_name='Заголовок к видео')
-    video = models.FileField(verbose_name='Видео', upload_to='video/', max_length=100)
+    name_video = models.CharField(max_length=250, verbose_name='Заголовок к видео', null=True, blank=True)
+    video = models.FileField(verbose_name='Видео', upload_to='video/', max_length=100, null=True,
+        blank=True)
     category = models.ForeignKey(
         Category, 
         related_name='room',
@@ -56,7 +57,9 @@ class Hotel(models.Model):
     imageroom = models.ManyToManyField(
         ImageRoom, 
         related_name='room',
-        verbose_name='Изображения'
+        verbose_name='Изображения',
+        null=True,
+        blank=True
         )
     
     
