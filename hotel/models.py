@@ -18,7 +18,6 @@ class Category(models.Model):
         return self.name        
                
 
-
 class ImageRoom(models.Model):
     """ Изображение """
     image = models.ImageField(upload_to='images/', verbose_name='Изображения')
