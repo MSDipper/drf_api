@@ -8,3 +8,9 @@ class HotelSerializer(serializers.ModelSerializer):
         model = Hotel
         fields = ('title', 'category')
 
+
+class HotelDetailSerializer(serializers.ModelSerializer):
+    ''' Апартаменты отеля '''
+    class Meta:
+        model = Hotel
+        exclude = ('published',)
