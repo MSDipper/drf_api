@@ -12,7 +12,6 @@ class HotelSerializer(serializers.ModelSerializer):
 class HotelDetailSerializer(serializers.ModelSerializer):
     ''' Апартаменты отеля '''
     category = serializers.SlugRelatedField(slug_field='name', read_only=True)
-    imageroom = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True) 
     class Meta:
         model = Hotel
         exclude = ('published',)
