@@ -154,7 +154,7 @@ class Reviews(models.Model):
     )
     hotel = models.ForeignKey(
         Hotel,
-        related_name="review",
+        related_name="reviews",
         verbose_name="Отель",
         on_delete=models.CASCADE
     )
