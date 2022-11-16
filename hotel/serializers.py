@@ -9,6 +9,19 @@ class HotelSerializer(serializers.ModelSerializer):
         fields = ('title', 'category')
 
 
+class FiterReviewListSerializer(serializers.ListSerializer):
+    """ Вывод зписи без дублирования """
+    def to_representation(self, data):
+        data = data.filter(parent=None)
+        return super().to_representation(data)
+
+
+class RecursiveSerializer(serializers.Serializer):
+    """ Вывод рекурсивно children """ 
+    def to_representation(self, value):
+        serializers = self.parent.parent.__class__(value, context=self.context)
+        return serializers.data
+
 class ReviewCreateSerializer(serializers.ModelSerializer):
     """ Добавление отзыва """
     class Meta:
@@ -18,9 +31,12 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     """ Вывод отзыва """
+    children = RecursiveSerializer(many=True)
+    
     class Meta:
+        list_serializer_class = FiterReviewListSerializer
         model = Reviews
-        fields = ('name', 'email', 'message', 'parent')
+        fields = ('name', 'email', 'message', 'children')
         
 
 class HotelDetailSerializer(serializers.ModelSerializer):

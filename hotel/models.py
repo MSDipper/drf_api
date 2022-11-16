@@ -149,6 +149,7 @@ class Reviews(models.Model):
         'self',
         verbose_name="Родитель",
         on_delete=models.SET_NULL, 
+        related_name='children',
         blank=True, 
         null=True
     )
