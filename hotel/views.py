@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from hotel.models import Hotel
-from hotel.serializers import HotelSerializer, HotelDetailSerializer
+from hotel.serializers import HotelSerializer, HotelDetailSerializer, ReviewCreateSerializer
 
 
 class HotelListView(APIView):
@@ -18,3 +18,19 @@ class HotelDetailView(APIView):
         hotel = Hotel.objects.filter(id=pk, published=True)
         serializer = HotelDetailSerializer(hotel, many=True)
         return Response(serializer.data)
+    
+
+class ReviewCreateView(APIView):
+    """ Добавление отзыва к фильму """
+    def post(self, request):
+        review = ReviewCreateSerializer(data=request.data)
+        if review.is_valid():
+            review.save()
+        return Response(status=201)
+
+# {
+# "email":"test@gmail.com",
+# "name":"jon",
+# "message":"text",
+# "hotel":1
+# }
