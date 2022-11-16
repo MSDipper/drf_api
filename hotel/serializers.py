@@ -9,17 +9,26 @@ class HotelSerializer(serializers.ModelSerializer):
         fields = ('title', 'category')
 
 
-class HotelDetailSerializer(serializers.ModelSerializer):
-    ''' Апартаменты отеля '''
-    category = serializers.SlugRelatedField(slug_field='name', read_only=True)
-    
-    class Meta:
-        model = Hotel
-        exclude = ('published',)
-        
-
 class ReviewCreateSerializer(serializers.ModelSerializer):
     """ Добавление отзыва """
     class Meta:
         model = Reviews
         fields = '__all__'
+        
+
+class ReviewSerializer(serializers.ModelSerializer):
+    """ Вывод отзыва """
+    class Meta:
+        model = Reviews
+        fields = ('name', 'email', 'message', 'parent')
+        
+
+class HotelDetailSerializer(serializers.ModelSerializer):
+    ''' Апартаменты отеля '''
+    category = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    reviews = ReviewSerializer(many=True)
+    
+    
+    class Meta:
+        model = Hotel
+        exclude = ('published',)
