@@ -2,7 +2,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from hotel.models import Hotel
 from hotel.serializers import HotelSerializer, HotelDetailSerializer, ReviewCreateSerializer
-from rest_framework import serializers
 
 
 class HotelListView(APIView):
@@ -19,9 +18,6 @@ class HotelDetailView(APIView):
         hotel = Hotel.objects.filter(id=pk, published=True)
         serializer = HotelDetailSerializer(hotel, many=True)
         return Response(serializer.data)
-
-
-
 
 
 class ReviewCreateView(APIView):
