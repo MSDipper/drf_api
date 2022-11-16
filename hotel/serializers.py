@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from hotel.models import Hotel
+from hotel.models import Hotel, Reviews
 
 
 class HotelSerializer(serializers.ModelSerializer):
@@ -16,3 +16,10 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
         exclude = ('published',)
+        
+
+class ReviewCreateSerializer(serializers.ModelSerializer):
+    """ Добавление отзыва """
+    class Meta:
+        model = Reviews
+        fields = '__all__'
