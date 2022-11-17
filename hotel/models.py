@@ -40,11 +40,25 @@ class Hotel(models.Model):
     create_at = models.DateTimeField(verbose_name='Добавлено', auto_now_add=True)
     quantity = models.IntegerField(verbose_name='Количество комнат', default=1)
     gps = models.CharField(max_length=250, verbose_name='Место положение')
-    main_image = models.ImageField(upload_to='images/', verbose_name='Главное изображение', null=True, blank=True)
     slug = models.SlugField(max_length=150, verbose_name='URL', unique=True, null=True)
     description = RichTextField(verbose_name='Описание')
-    name_video = models.CharField(max_length=250, verbose_name='Заголовок к видео', null=True, blank=True)
-    video = models.FileField(verbose_name='Видео', upload_to='video/', max_length=100, null=True,
+    name_video = models.CharField(
+        max_length=250,
+        verbose_name='Заголовок к видео',
+        null=True,
+        blank=True
+        )
+    main_image = models.ImageField(
+        upload_to='images/',
+        verbose_name='Главное изображение',
+        null=True,
+        blank=True
+        )
+    video = models.FileField(
+        verbose_name='Видео',
+        upload_to='video/',
+        max_length=100,
+        null=True,
         blank=True)
     category = models.ForeignKey(
         Category, 
@@ -77,8 +91,13 @@ class Comment(models.Model):
     name = models.CharField(verbose_name='Имя', max_length=150)
     email = models.EmailField(max_length=254)
     publish = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано')
-    photo = models.ImageField(verbose_name='Фото', upload_to='photo/', blank=True, null=True)
     message = models.TextField(max_length=500, verbose_name='Текст')
+    photo = models.ImageField(
+        verbose_name='Фото', 
+        upload_to='photo/',
+        blank=True, 
+        null=True
+        )
     hotel = models.ForeignKey(
         Hotel, 
         related_name='comment', 
@@ -124,7 +143,11 @@ class RatingStar(models.Model):
 class Rating(models.Model):
     """ Рейтинг """
     ip = models.CharField("IP адрес", max_length=25)
-    star = models.ForeignKey(RatingStar, verbose_name="Звезда", on_delete=models.CASCADE,)
+    star = models.ForeignKey(
+        RatingStar,
+        verbose_name="Звезда", 
+        on_delete=models.CASCADE,
+        )
     hotel = models.ForeignKey(
         Hotel, 
         verbose_name="Отель",
