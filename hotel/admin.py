@@ -9,6 +9,7 @@ from hotel.models import (
                         Reviews
                         )
 
+
 admin.site.register(Category)
 admin.site.register(ImageRoom)
 admin.site.register(Hotel)
