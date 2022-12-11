@@ -4,9 +4,10 @@ from hotel.models import Hotel, Reviews
 
 class HotelSerializer(serializers.ModelSerializer):
     ''' Отели '''
+    category = serializers.SlugRelatedField(slug_field='name', read_only=True)
     class Meta:
         model = Hotel
-        fields = ('title', 'category')
+        fields = ('id', 'title', 'category')
 
 
 class FiterReviewListSerializer(serializers.ListSerializer):
