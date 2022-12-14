@@ -7,8 +7,10 @@ from hotel.serializers import HotelSerializer
 
 class HotelApiTestCase(APITestCase):
     def test_get(self):
-        hotel_1 = Hotel.objects.create(title='Paris', slug='paris', price=123, quantity=12, gps='russia',description='lorem ipsum',name_video='lorem')
-        hotel_2 = Hotel.objects.create(title='Italy', slug='italy', price=323, quantity=12, gps='russia',description='lorem ipsum',name_video='lorem')
+        hotel_1 = Hotel.objects\
+            .create(title='Paris', slug='paris', price=123, quantity=12, gps='russia',description='lorem ipsum', name_video='lorem')
+        hotel_2 = Hotel.objects\
+            .create(title='Italy', slug='italy', price=323, quantity=12, gps='russia',description='lorem ipsum', name_video='lorem')
         url = reverse('hotel')
         print(url)
         response = self.client.get(url)
