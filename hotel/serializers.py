@@ -23,6 +23,7 @@ class RecursiveSerializer(serializers.Serializer):
         serializers = self.parent.parent.__class__(value, context=self.context)
         return serializers.data
 
+
 class ReviewCreateSerializer(serializers.ModelSerializer):
     """ Добавление отзыва """
     class Meta:
