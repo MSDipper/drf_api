@@ -152,7 +152,7 @@ class Rating(models.Model):
         Hotel, 
         verbose_name="Отель",
         on_delete=models.CASCADE, 
-        related_name="rating"
+        related_name="ratings"
         )
 
     def __str__(self):
