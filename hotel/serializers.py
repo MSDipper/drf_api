@@ -5,9 +5,13 @@ from hotel.models import Hotel, Reviews, Rating
 class HotelSerializer(serializers.ModelSerializer):
     ''' Отели '''
     category = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    rating = serializers.BooleanField()
+    middle_star = serializers.IntegerField()
+    
+    
     class Meta:
         model = Hotel
-        fields = ('id', 'title', 'category')
+        fields = ('id', 'title', 'category', 'rating', 'middle_star')
 
 
 class FiterReviewListSerializer(serializers.ListSerializer):

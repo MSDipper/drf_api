@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from hotel.models import Hotel
 from hotel.service import get_client_ip
+from django.db import models
 from hotel.serializers import (
                             HotelSerializer,
                             HotelDetailSerializer,
@@ -13,7 +14,11 @@ from hotel.serializers import (
 class HotelListView(APIView):
     ''' Вывод отелей '''
     def get(self, request):
-        hotels = Hotel.objects.filter(published=True)
+        hotels = Hotel.objects.filter(published=True).annotate(
+            rating=models.Count("ratings", filter=models.Q(ratings__ip=get_client_ip(request)))
+        ).annotate(
+            middle_star=models.Sum(models.F('ratings__star')) / models.Count(models.F('ratings'))
+        )
         serializer = HotelSerializer(hotels, many=True)
         return Response(serializer.data)
 
