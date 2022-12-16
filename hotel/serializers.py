@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from hotel.models import Hotel, Reviews
+from hotel.models import Hotel, Reviews, Rating
 
 
 class HotelSerializer(serializers.ModelSerializer):
@@ -50,3 +50,16 @@ class HotelDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
         exclude = ('published',)
+
+
+class CreateRatingSerializer(serializers.ModelSerializer):
+    ''' Добавление рейтинга пользователем '''
+    class Meta:
+        fields = ('star', 'hotel')
+    
+    def create(self, validated_data):
+        rating = Rating.object.update_or_create(
+            ip = validated_data.get('ip', None),
+            hotel = validated_data.get('hotel', None),
+            defaults = {'star': validated_data.get('star')}
+        )
