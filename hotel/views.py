@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from hotel.models import Hotel
+from hotel.service import get_client_ip
 from hotel.serializers import (
                             HotelSerializer,
                             HotelDetailSerializer,
@@ -36,19 +37,10 @@ class ReviewCreateView(APIView):
 
 class AddStarRatingView(APIView):
     """Добавление рейтинга фильму"""
-
-    def get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-
     def post(self, request):
         serializer = CreateRatingSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(ip=self.get_client_ip(request))
+            serializer.save(ip=get_client_ip(request))
             return Response(status=201)
         else:
             return Response(status=400)
