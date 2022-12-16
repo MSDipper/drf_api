@@ -55,11 +55,13 @@ class HotelDetailSerializer(serializers.ModelSerializer):
 class CreateRatingSerializer(serializers.ModelSerializer):
     ''' Добавление рейтинга пользователем '''
     class Meta:
+        model = Rating
         fields = ('star', 'hotel')
     
     def create(self, validated_data):
-        rating = Rating.object.update_or_create(
+        rating = Rating.objects.update_or_create(
             ip = validated_data.get('ip', None),
             hotel = validated_data.get('hotel', None),
             defaults = {'star': validated_data.get('star')}
         )
+        return rating
