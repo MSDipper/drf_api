@@ -1,8 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 from hotel.models import Hotel
-from hotel.service import get_client_ip
+from hotel.service import get_client_ip, HotelFilter
 from django.db import models
+from django_filters.rest_framework import DjangoFilterBackend
 from hotel.serializers import (
                             HotelSerializer,
                             HotelDetailSerializer,
@@ -11,16 +13,21 @@ from hotel.serializers import (
                             )
 
 
-class HotelListView(APIView):
+class HotelListView(generics.ListAPIView):
     ''' Вывод отелей '''
-    def get(self, request):
+    serializer_class = HotelSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = HotelFilter
+    
+    def get_queryset(self):
         hotels = Hotel.objects.filter(published=True).annotate(
-            rating=models.Count("ratings", filter=models.Q(ratings__ip=get_client_ip(request)))
+            rating=models.Count("ratings", 
+                                filter=models.Q(ratings__ip=get_client_ip(self.request))
+                                )
         ).annotate(
             middle_star=models.Sum(models.F('ratings__star')) / models.Count(models.F('ratings'))
         )
-        serializer = HotelSerializer(hotels, many=True)
-        return Response(serializer.data)
+        return hotels
 
 
 class HotelDetailView(APIView):
