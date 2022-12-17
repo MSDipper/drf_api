@@ -19,7 +19,7 @@ class HotelListView(generics.ListAPIView):
     serializer_class = HotelSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filterset_class = HotelFilter
-    search_fields = ['title', 'quantity', 'gps', 'price']
+    search_fields = ['title', 'quantity', 'gps']
     
     
     def get_queryset(self):
