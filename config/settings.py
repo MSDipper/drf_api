@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     'ckeditor',
     'rest_framework',
+    'django_filters',
     
     'hotel.apps.HotelConfig',
 ]
