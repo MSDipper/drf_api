@@ -4,7 +4,7 @@ from rest_framework import generics
 from hotel.models import Hotel
 from hotel.service import get_client_ip, HotelFilter
 from django.db import models
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from hotel.serializers import (
                             HotelSerializer,
@@ -17,9 +17,9 @@ from hotel.serializers import (
 class HotelListView(generics.ListAPIView):
     ''' Вывод отелей '''
     serializer_class = HotelSerializer
-    filter_backends = (DjangoFilterBackend, SearchFilter)
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderFilter)
     filterset_class = HotelFilter
-    search_fields = ['title', 'quantity', 'gps']
+    search_fields = ['title', 'gps']
     
     
     def get_queryset(self):
