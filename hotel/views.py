@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics
 from hotel.models import Hotel
@@ -60,3 +61,7 @@ class AddStarRatingView(APIView):
             return Response(status=201)
         else:
             return Response(status=400)
+
+
+def auth(request):
+    return render(request, 'oauth.html')
