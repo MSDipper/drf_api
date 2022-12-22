@@ -78,6 +78,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GITHUB_KEY = 'yourkey'
+SOCIAL_AUTH_GITHUB_SECRET = 'yoursecret'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
