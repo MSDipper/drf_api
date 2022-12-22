@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics
 from hotel.models import Hotel
+from rest_framework.permissions import IsAuthenticated
 from hotel.service import get_client_ip, HotelFilter
 from django.db import models
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -20,6 +21,7 @@ class HotelListView(generics.ListAPIView):
     serializer_class = HotelSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filterset_class = HotelFilter
+    permission_classes = [IsAuthenticated]
     search_fields = ['title', 'gps']
     ordering_fields = ['quantity', 'rating', 'price',]
     
