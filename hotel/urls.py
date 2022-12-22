@@ -3,11 +3,13 @@ from hotel.views import (
                         HotelListView,
                         HotelDetailView, 
                         ReviewCreateView,
-                        AddStarRatingView
+                        AddStarRatingView,
+                        auth
                         )
 
 
 urlpatterns = [
+    path('oauth/', auth),
     path('hotel/<int:pk>/', HotelDetailView.as_view()),
     path('hotel/', HotelListView.as_view(), name='hotel'),
     path('review/', ReviewCreateView.as_view()),
