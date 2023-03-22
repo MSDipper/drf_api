@@ -46,7 +46,7 @@ class HotelDetailView(APIView):
 
 
 class ReviewCreateView(APIView):
-    """ Добавление отзыва к фильму """
+    """ Добавление отзыва  отель """
     def post(self, request):
         review = ReviewCreateSerializer(data=request.data)
         if review.is_valid():
@@ -55,7 +55,7 @@ class ReviewCreateView(APIView):
 
 
 class AddStarRatingView(APIView):
-    """Добавление рейтинга фильму"""
+    """Добавление рейтинга отель"""
     def post(self, request):
         serializer = CreateRatingSerializer(data=request.data)
         if serializer.is_valid():
