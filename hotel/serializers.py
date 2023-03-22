@@ -16,7 +16,7 @@ class HotelSerializer(serializers.ModelSerializer):
 
 
 class FiterReviewListSerializer(serializers.ListSerializer):
-    """ Вывод зписи без дублирования """
+    """ Вывод записи без дублирования """
     def to_representation(self, data):
         data = data.filter(parent=None)
         return super().to_representation(data)
